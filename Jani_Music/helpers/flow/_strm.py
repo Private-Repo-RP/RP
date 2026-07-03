@@ -12,7 +12,7 @@ from Jani_Music.engine._vclient import Jany
 from Jani_Music.misc import db
 from Jani_Music.helpers._store import add_active_video_chat, is_active_chat
 from Jani_Music.helpers._exc import AssistantErr
-from Jani_Music.helpers.kb import aq_markup, close_markup, stream_markup
+from Jani_Music.helpers.kb import aq_markup, close_markup, stream_markup, stream_markup_timer
 from Jani_Music.helpers._paste import BABYBin
 from Jani_Music.helpers.flow._que import put_queue, put_queue_index
 from Jani_Music.helpers._thumb import get_thumb
@@ -100,7 +100,7 @@ async def stream(
                     forceplay=forceplay,
                 )
                 img = await get_thumb(vidid)
-                button = stream_markup(_, chat_id)
+                button = stream_markup_timer(_, chat_id, "00:00", duration_min)
                 cap = _["stream_1"].format(
                     f"https://t.me/{app.username}?start=info_{vidid}",
                     title[:23],
@@ -194,7 +194,7 @@ async def stream(
                 forceplay=forceplay,
             )
             img = await get_thumb(vidid)
-            button = stream_markup(_, chat_id)
+            button = stream_markup_timer(_, chat_id, "00:00", duration_min)
             cap = _["stream_1"].format(
                 f"https://t.me/{app.username}?start=info_{vidid}",
                 title[:23],
@@ -257,7 +257,7 @@ async def stream(
                 "audio",
                 forceplay=forceplay,
             )
-            button = stream_markup(_, chat_id)
+            button = stream_markup_timer(_, chat_id, "00:00", duration_min)
             cap = _["stream_1"].format(config.SUPPORT_CHAT, title[:23], duration_min, user_name)
             try:
                 await mystic.edit_media(InputMediaPhoto(media=config.SOUNCLOUD_IMG_URL, caption=cap))
@@ -319,7 +319,7 @@ async def stream(
             )
             if video:
                 await add_active_video_chat(chat_id)
-            button = stream_markup(_, chat_id)
+            button = stream_markup_timer(_, chat_id, "00:00", duration_min)
             cap = _["stream_1"].format(link, title[:23], duration_min, user_name)
             photo = config.TELEGRAM_VIDEO_URL if video else config.TELEGRAM_AUDIO_URL
             try:
