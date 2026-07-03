@@ -43,11 +43,15 @@ async def helper_private(client: app, update: Union[types.Message, types.Callbac
         try:
             if update.message.media:
                 await update.edit_message_caption(
-                    caption=_["help_1"].format(SUPPORT_CHAT), reply_markup=keyboard
+                    caption=_["help_1"].format(SUPPORT_CHAT),
+                    reply_markup=keyboard,
+                    parse_mode=enums.ParseMode.HTML,
                 )
             else:
                 await update.edit_message_text(
-                    _["help_1"].format(SUPPORT_CHAT), reply_markup=keyboard
+                    _["help_1"].format(SUPPORT_CHAT),
+                    reply_markup=keyboard,
+                    parse_mode=enums.ParseMode.HTML,
                 )
         except Exception:
             pass  
@@ -65,7 +69,8 @@ async def helper_private(client: app, update: Union[types.Message, types.Callbac
         await update.reply_photo(  
             photo=START_IMG_URL,  
             caption=_["help_1"].format(SUPPORT_CHAT),  
-            reply_markup=keyboard,  
+            reply_markup=keyboard,
+            parse_mode=enums.ParseMode.HTML,
         )  
   
 @app.on_message(filters.command(["help"]) & filters.group & ~BANNED_USERS)  
@@ -91,11 +96,16 @@ async def helper_cb(_, CallbackQuery, language):
     try:
         if CallbackQuery.message.media:
             await CallbackQuery.edit_message_caption(
-                caption=text, reply_markup=keyboard
+                caption=text,
+                reply_markup=keyboard,
+                parse_mode=enums.ParseMode.HTML,
             )
         else:
             await CallbackQuery.edit_message_text(
-                text, reply_markup=keyboard, disable_web_page_preview=True
+                text,
+                reply_markup=keyboard,
+                parse_mode=enums.ParseMode.HTML,
+                disable_web_page_preview=True,
             )
     except Exception:
         pass
@@ -118,12 +128,15 @@ async def on_back_button(client, query):
         try:
             if query.message.media:
                 await query.edit_message_caption(
-                    caption=_["help_1"].format(SUPPORT_CHAT), reply_markup=keyboard
+                    caption=_["help_1"].format(SUPPORT_CHAT),
+                    reply_markup=keyboard,
+                    parse_mode=enums.ParseMode.HTML,
                 )
             else:
                 await query.edit_message_text(
-                    _["help_1"].format(SUPPORT_CHAT), reply_markup=keyboard
+                    _["help_1"].format(SUPPORT_CHAT),
+                    reply_markup=keyboard,
+                    parse_mode=enums.ParseMode.HTML,
                 )
         except Exception:
             pass
-  
