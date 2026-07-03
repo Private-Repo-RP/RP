@@ -29,13 +29,15 @@ class Userbot(Client):
             except:
                 pass
             assistants.append(1)
-            try:
-                await self.one.send_message(config.LOGGER_ID, "Assistant Started")
-            except:
-                LOGGER(__name__).error(
-                    "Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
-                )
-                exit()
+            if config.LOGGER_ID and config.LOGGER_ID != 0:
+                try:
+                    await self.one.get_chat(config.LOGGER_ID)
+                    await self.one.send_message(config.LOGGER_ID, "✅ Assistant Started Successfully!")
+                    LOGGER(__name__).info("Assistant log message sent to LOGGER_ID.")
+                except Exception as e:
+                    LOGGER(__name__).warning(
+                        f"Assistant could not send to log group ({type(e).__name__}: {e}). Continuing anyway."
+                    )
             self.one.id = self.one.me.id
             self.one.name = self.one.me.mention
             self.one.username = self.one.me.username
