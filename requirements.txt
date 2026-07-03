@@ -52,32 +52,3 @@ pykeyboard==0.1.5
 
 # ── Heroku Restart Support ────────────────────────────────────────────
 heroku3==5.2.1
-aiofiles
-aiohttp
-apscheduler
-beautifulsoup4
-dnspython
-ffmpeg-python
-gitpython
-hachoir
-heroku3
-httpx
-kurigram==2.2.19
-motor
-pickledb
-Pillow
-psutil
-py-tgcalls==2.3.3
-py_yt_search
-pydub
-pykeyboard
-pymongo
-pyrogram
-python-dotenv
-pytz
-pyyaml
-requests
-spotipy
-tgcrypto
-unidecode
-yt-dlp
