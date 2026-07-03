@@ -388,10 +388,13 @@ async def markup_timer():
                 except:
                     _ = get_string("en")
                 try:
+                    current_played = int(db[chat_id][0].get("played", 0))
+                    new_played = min(current_played + 7, duration_seconds)
+                    db[chat_id][0]["played"] = new_played
                     buttons = stream_markup_timer(
                         _,
                         chat_id,
-                        seconds_to_min(playing[0]["played"]),
+                        seconds_to_min(new_played),
                         playing[0]["dur"],
                     )
                     await mystic.edit_reply_markup(
