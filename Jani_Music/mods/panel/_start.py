@@ -117,6 +117,35 @@ async def start_gp(client, message: Message, _):
     )
     return await add_served_chat(message.chat.id)
 
+@app.on_callback_query(filters.regex("^go_to_start$") & ~BANNED_USERS)
+async def go_to_start_cb(client, query):
+    try:
+        await query.answer()
+    except:
+        pass
+    try:
+        chat_id = query.message.chat.id
+        language = await get_lang(chat_id)
+        _ = get_string(language)
+        out = private_panel(_)
+        served_chats = len(await get_served_chats())
+        served_users = len(await get_served_users())
+        UP, CPU, RAM, DISK = await bot_sys_stats()
+        caption = _["start_2"].format(
+            query.from_user.mention, app.mention, UP, DISK, CPU, RAM, served_users, served_chats
+        )
+        try:
+            await query.edit_message_caption(
+                caption=caption,
+                reply_markup=InlineKeyboardMarkup(out),
+            )
+        except Exception:
+            await query.edit_message_reply_markup(
+                reply_markup=InlineKeyboardMarkup(out)
+            )
+    except Exception:
+        pass
+
 @app.on_message(filters.new_chat_members, group=-1)
 async def welcome(client, message: Message):
     for member in message.new_chat_members:
