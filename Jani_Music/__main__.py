@@ -2,7 +2,9 @@
 
 import asyncio
 import importlib
+import os
 
+from aiohttp import web
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
@@ -13,6 +15,22 @@ from Jani_Music.misc import sudo
 from Jani_Music.mods import ALL_MODULES
 from Jani_Music.helpers._store import get_banned_users, get_gbanned
 from config import BANNED_USERS
+
+
+async def _health(request):
+    return web.Response(text="OK")
+
+
+async def start_health_server():
+    port = int(os.environ.get("PORT", 8080))
+    _app = web.Application()
+    _app.router.add_get("/", _health)
+    _app.router.add_get("/health", _health)
+    runner = web.AppRunner(_app)
+    await runner.setup()
+    await web.TCPSite(runner, "0.0.0.0", port).start()
+    LOGGER(__name__).info(f"Railway health server started on port {port}")
+
 
 async def init():
     if (
@@ -53,10 +71,13 @@ async def init():
     LOGGER("Jani_Music").info(
         "Bot Started Successfully 🎉 ©️ | @BabiesIQ |"
     )
+    # Railway health check — PORT par respond karna zaroori hai
+    await start_health_server()
     await idle()
     await app.stop()
     await userbot.stop()
     LOGGER("Jani_Music").info("Stopping Bot...")
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(init())
