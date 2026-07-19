@@ -27,7 +27,7 @@ UPSTREAM_REPO = getenv(
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 GIT_TOKEN = getenv("GIT_TOKEN", None) or getenv("GITHUB_TOKEN", None)
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Jani_Ki_Jaanu")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Jani_Ki_Jaanu") 
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/+dOsOTS5XXMxhNzJh")
 SOURCE = getenv("SOURCE", "https://t.me/+dOsOTS5XXMxhNzJh")
 CHAT = getenv("CHAT", "")
